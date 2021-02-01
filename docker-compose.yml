@@ -1,0 +1,40 @@
+version: '3'
+services:
+
+  go-dev:
+      image: golang:1.15
+#      image: x1unix/go-mingw
+      working_dir: /go/projects/app
+      volumes:
+          - ./:/go/projects/app/
+          - ./go/:/go/
+#      environment:
+#          - GOPATH=/usr/app/GOPATH
+      logging:
+        driver: "json-file"
+        options:
+          max-size: "200k"
+          max-file: "10"
+
+  go-dev-windows:
+    image: x1unix/go-mingw
+#    image: golang:1.15
+    working_dir: /go/projects/app
+    volumes:
+      - ./:/go/projects/app/
+      - ./go/:/go/
+    environment:
+      - GOOS=windows
+      - GOARCH=386
+      - CGO_ENABLED=1
+#      - GOPATH=/usr/app/GOPATH
+#      - GOROOT=/usr/app/GOROOT
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "200k"
+        max-file: "10"
+
+#networks:
+#  internal:
+#    driver: bridge
